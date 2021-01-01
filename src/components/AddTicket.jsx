@@ -24,6 +24,7 @@ const AddTicket = () => {
   const changeNameTicket = ({ target }) => {
     setNameTicket(target.value);
   };
+
   return (
     <div>
       <input onChange={changeNameTicket} value={nameTicket} />

@@ -29,6 +29,7 @@
 .numeric-keypad {
   display: flex;
   flex-wrap: wrap;
+  position: fixed;
   width: 420px;
   &__item {
     border: solid 1px #000;
