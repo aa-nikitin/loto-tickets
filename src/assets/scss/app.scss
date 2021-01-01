@@ -1,0 +1,23 @@
+.tickets {
+  &__item {
+    margin-bottom: 10px;
+  }
+}
+
+.ticket {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 378px;
+  &__item {
+    border: solid 1px #000;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.active {
+      background-color: rgb(247, 190, 6);
+    }
+  }
+}
