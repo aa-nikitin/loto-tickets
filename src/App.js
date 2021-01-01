@@ -1,19 +1,23 @@
-import React, { useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Tickets } from './components/Tickets';
-import { AddTicket } from './components/AddTicket';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route } from 'react-router-dom';
+import { TicketsGame } from './pages/TicketsGame';
+import { TicketsEditor } from './pages/TicketsEditor';
 import { ticketsOpen } from './redux/actions';
+import { Header } from './components/Header';
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('sad');
     dispatch(ticketsOpen());
-  }, []);
+  }, [dispatch]);
   return (
     <div className="App">
-      <Tickets />
-      <AddTicket />
+      <Header />
+      <Route path="/" component={TicketsGame} exact />
+      <Route path="/tickets-editor.html" component={TicketsEditor} exact />
+      {/* <Tickets />
+      <AddTicket /> */}
     </div>
   );
 };

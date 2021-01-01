@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ticketAdd, ticketDel, ticketsSave, ticketsOpen } from '../redux/actions';
+import { ticketAdd, ticketDel, ticketsSave } from '../redux/actions';
+import { getTickets } from '../redux/reducers';
 import { Ticket } from './Ticket';
 
 const AddTicket = () => {
   const [nameTicket, setNameTicket] = React.useState('');
-  const tickets = useSelector(({ tickets }) => tickets);
+  const tickets = useSelector((state) => getTickets(state));
   //   console.log(tickets);
   const dispatch = useDispatch();
   const addTicket = () => {
@@ -41,7 +42,7 @@ const AddTicket = () => {
               </div>
 
               <div className="tickets__one" key={element.name}>
-                <Ticket items={element.items} actives={element.actives} />
+                <Ticket nameTicket={element.name} items={element.items} actives={element.actives} />
               </div>
             </div>
           );

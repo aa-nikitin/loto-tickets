@@ -1,9 +1,9 @@
 import { handleActions } from 'redux-actions';
-// import { combineReducers } from "redux";
-import { ticketAdd, ticketDel, ticketsSave, ticketsOpen, ticketsState } from '../actions';
+import { combineReducers } from 'redux';
+import { ticketAdd, ticketDel, ticketItemSelected, ticketsState, ticketChange } from '../actions';
 import { ticketTemplate } from '../constants';
 
-const tickets = handleActions(
+const list = handleActions(
   {
     [ticketAdd]: (state, { payload }) => [
       ...state,
@@ -21,7 +21,15 @@ const tickets = handleActions(
   []
 );
 
-export const getTickets = (state) => state.tickets;
+const itemSelected = handleActions(
+  {
+    [ticketItemSelected]: (_state, { payload }) => payload
+  },
+  { item: null, nameTicket: null }
+);
 
-// export default combineReducers({ items });
-export default tickets;
+export const getTickets = (state) => state.tickets.list;
+export const getTicketSelected = (state) => state.tickets.itemSelected;
+
+export default combineReducers({ list, itemSelected });
+// export default tickets;

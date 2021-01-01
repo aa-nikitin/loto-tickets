@@ -18,9 +18,8 @@ export function* saveTickets() {
   try {
     // const tickets = yield JSON.stringify(select(getTickets));
     const tickets = yield select(getTickets);
-    const ticketsA = yield JSON.stringify(tickets);
-    // console.log('tickets');
-    yield localStorage.setItem(TICKETS_STORAGE_KEY, ticketsA);
+    const ticketsString = yield JSON.stringify(tickets);
+    yield localStorage.setItem(TICKETS_STORAGE_KEY, ticketsString);
   } catch (error) {}
 }
 
@@ -28,9 +27,8 @@ export function* openTickets() {
   try {
     // const tickets = yield JSON.parse(localStorage.getItem(TICKETS_STORAGE_KEY));
     const tickets = yield localStorage.getItem(TICKETS_STORAGE_KEY);
-    const ticketsA = yield JSON.parse(tickets);
-    console.log(ticketsA);
-    yield put(ticketsState(ticketsA));
+    const ticketsJson = yield JSON.parse(tickets);
+    yield put(ticketsState(ticketsJson));
   } catch (error) {}
 }
 

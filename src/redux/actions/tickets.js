@@ -1,16 +1,25 @@
 import { createActions } from 'redux-actions';
 
 const {
-  ticket: { add: ticketAdd, del: ticketDel }
+  ticket: {
+    add: ticketAdd,
+    del: ticketDel,
+    item: { selected: ticketItemSelected }
+  }
 } = createActions(
   {
     TICKET: {
       ADD: null,
-      DEL: null
+      DEL: null,
+      ITEM: {
+        SELECTED: null
+      }
     }
   },
   { namespace: '_' }
 );
+
+export { ticketAdd, ticketDel, ticketItemSelected };
 
 const {
   tickets: { save: ticketsSave, open: ticketsOpen, state: ticketsState }
@@ -25,4 +34,4 @@ const {
   { namespace: '_' }
 );
 
-export { ticketAdd, ticketDel, ticketsSave, ticketsOpen, ticketsState };
+export { ticketsSave, ticketsOpen, ticketsState };

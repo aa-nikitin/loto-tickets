@@ -16,8 +16,36 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     &.active {
+      background-color: rgb(149, 209, 184);
+    }
+    &.selected {
       background-color: rgb(247, 190, 6);
     }
+  }
+}
+
+.numeric-keypad {
+  display: flex;
+  flex-wrap: wrap;
+  width: 420px;
+  &__item {
+    border: solid 1px #000;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+
+.tickets-editor {
+  display: flex;
+  &__left {
+    margin-right: 40px;
+  }
+  &__right {
   }
 }
