@@ -39,6 +39,9 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    &.active {
+      background-color: rgb(231, 158, 116);
+    }
   }
 }
 

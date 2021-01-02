@@ -1,10 +1,11 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
-import { keypadAdd, keypadChange } from '../actions';
+import { keypadAdd, keypadChange, keypadState } from '../actions';
 
 const list = handleActions(
   {
-    [keypadAdd]: (state, { payload }) => [...state, payload]
+    [keypadAdd]: (state, { payload }) => [...state, payload],
+    [keypadState]: (state, { payload }) => payload
   },
   []
 );

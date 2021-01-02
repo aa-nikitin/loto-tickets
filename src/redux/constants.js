@@ -116,7 +116,7 @@ const ticketTemplate = {
 const TICKETS_STORAGE_KEY = 'tickets';
 
 const NUMERIC_KEYPAD = [
-  0,
+  null,
   1,
   2,
   3,
