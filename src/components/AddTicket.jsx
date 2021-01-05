@@ -43,7 +43,12 @@ const AddTicket = () => {
               </div>
 
               <div className="tickets__one" key={element.name}>
-                <Ticket nameTicket={element.name} items={element.items} actives={element.actives} />
+                <Ticket
+                  permissionToEdit={true}
+                  nameTicket={element.name}
+                  items={element.items}
+                  actives={element.actives}
+                />
               </div>
             </div>
           );

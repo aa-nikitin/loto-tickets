@@ -1,11 +1,12 @@
 import { createActions } from 'redux-actions';
 
 const {
-  keypad: { add: keypadAdd, change: keypadChange, state: keypadState }
+  keypad: { add: keypadAdd, changelist: keypadChangeList, change: keypadChange, state: keypadState }
 } = createActions(
   {
     KEYPAD: {
       ADD: null,
+      CHANGELIST: null,
       CHANGE: null,
       STATE: null
     }
@@ -13,4 +14,4 @@ const {
   { namespace: '_' }
 );
 
-export { keypadAdd, keypadChange, keypadState };
+export { keypadAdd, keypadChangeList, keypadChange, keypadState };

@@ -1,13 +1,13 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
-import { ticketAdd, ticketDel, ticketItemSelected, ticketsState, ticketChange } from '../actions';
+import { ticketAdd, ticketDel, ticketItemSelected, ticketsState } from '../actions';
 import { ticketTemplate } from '../constants';
 
 const list = handleActions(
   {
     [ticketAdd]: (state, { payload }) => [
       ...state,
-      { name: payload, actives: [...ticketTemplate.actives], items: [...ticketTemplate.items] }
+      { name: payload, items: [...ticketTemplate.items] }
     ],
     [ticketDel]: (state, { payload }) =>
       [...state].filter((item) => {
