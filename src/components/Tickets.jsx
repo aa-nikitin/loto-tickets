@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import _ from 'lodash';
 // import produce from 'immer';
 import { ticketAdd, ticketDel, ticketsSave } from '../redux/actions';
 import { getTickets } from '../redux/reducers';
@@ -11,7 +12,10 @@ const Tickets = ({ editor }) => {
   //   console.log(tickets);
   const dispatch = useDispatch();
   const addTicket = () => {
-    if (nameTicket) {
+    const similarTickets = _.find(tickets, function (o) {
+      return o.name === nameTicket;
+    });
+    if (nameTicket && !similarTickets) {
       dispatch(ticketAdd(nameTicket));
       dispatch(ticketsSave());
       setNameTicket('');
@@ -27,12 +31,18 @@ const Tickets = ({ editor }) => {
   };
 
   return (
-    <div>
+    <Fragment>
       {editor ? (
-        <Fragment>
-          <input onChange={changeNameTicket} value={nameTicket} />
-          <button onClick={addTicket}>Добавить билет</button>
-        </Fragment>
+        <div className="add-ticket">
+          <input
+            className="add-ticket__edit-text edit-text"
+            onChange={changeNameTicket}
+            value={nameTicket}
+          />
+          <button className="add-ticket__button button" onClick={addTicket}>
+            Добавить билет
+          </button>
+        </div>
       ) : (
         ''
       )}
@@ -44,9 +54,10 @@ const Tickets = ({ editor }) => {
               <div className="tickets__head">
                 <div className="tickets__name">{element.name}</div>
                 {editor ? (
-                  <button className="tickets__delete" onClick={() => delTicket(element.name)}>
-                    Удалить
-                  </button>
+                  <button
+                    className="tickets__delete"
+                    title="Удалить"
+                    onClick={() => delTicket(element.name)}></button>
                 ) : (
                   ''
                 )}
@@ -59,7 +70,7 @@ const Tickets = ({ editor }) => {
           );
         })}
       </div>
-    </div>
+    </Fragment>
   );
 };
 

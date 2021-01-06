@@ -11,22 +11,26 @@ const Keypad = ({ editor }) => {
   const tickets = useSelector((state) => getTickets(state));
   const ticketSelected = useSelector((state) => getTicketSelected(state));
   const dispatch = useDispatch();
+  const activeTicketIndex = _.findIndex(tickets, function (o) {
+    return o.name === ticketSelected.nameTicket;
+  });
+  const itemsOfActiveTicket = tickets[activeTicketIndex] ? tickets[activeTicketIndex].items : [];
   const handleGameKeypad = (value) => {
     dispatch(keypadAdd(value));
     dispatch(ticketsSave());
   };
 
   const handleEditorKeypad = (value) => {
-    const activeTicketIndex = _.findIndex(tickets, function (o) {
-      return o.name === ticketSelected.nameTicket;
-    });
-
     if (activeTicketIndex >= 0) {
-      const nextState = produce(tickets, (draftState) => {
-        draftState[activeTicketIndex].items[ticketSelected.item] = value;
-      });
-      dispatch(ticketsState(nextState));
-      dispatch(ticketsSave());
+      const similarTicketsItems = _.indexOf(itemsOfActiveTicket, value);
+      // console.log(similarTicketsItems);
+      if (similarTicketsItems <= 0) {
+        const nextState = produce(tickets, (draftState) => {
+          draftState[activeTicketIndex].items[ticketSelected.item] = value;
+        });
+        dispatch(ticketsState(nextState));
+        dispatch(ticketsSave());
+      }
     }
   };
 
@@ -36,21 +40,39 @@ const Keypad = ({ editor }) => {
   };
 
   const handleClear = () => dispatch(keypadChangeList([]));
+
   return (
     <div className="numeric-keypad">
-      {NUMERIC_KEYPAD.map((element, i) => {
-        const activeNumber = !editor ? _.indexOf(keypad, element) : -1;
+      <div className="numeric-keypad__wrap">
+        {NUMERIC_KEYPAD.map((element, i) => {
+          const elementWithouNull = element !== null ? element : -1;
+          const activeNumber = !editor
+            ? _.indexOf(keypad, element)
+            : _.indexOf(itemsOfActiveTicket, elementWithouNull);
 
-        return (
-          <div
-            onClick={() => handleClick(element)}
-            className={`numeric-keypad__item ${activeNumber >= 0 ? 'active' : ''}`}
-            key={i}>
-            {element}
-          </div>
-        );
-      })}
-      {!editor ? <button onClick={handleClear}>Очистить</button> : ''}
+          // const activeKeypadNumbers = editor
+          //   ? _.indexOf(tickets[activeTicketIndex].items, element)
+          //   : -1;
+          // console.log(element);
+          return (
+            <div
+              onClick={() => handleClick(element)}
+              className={`numeric-keypad__item ${activeNumber >= 0 ? 'active' : ''}`}
+              key={i}>
+              {element}
+            </div>
+          );
+        })}
+      </div>
+      {!editor ? (
+        <div className="numeric-keypad__button-box">
+          <button className="numeric-keypad__button button" onClick={handleClear}>
+            Очистить
+          </button>
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   );
 };
