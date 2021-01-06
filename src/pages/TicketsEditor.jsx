@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { AddTicket } from '../components/AddTicket';
-import { NumericKeypad } from '../components/NumericKeypad';
+import { Tickets } from '../components/Tickets';
+import { Keypad } from '../components/Keypad';
 
 const TicketsEditor = () => {
   return (
     <div className="tickets-editor">
       <div className="tickets-editor__left">
-        <AddTicket />
+        <Tickets editor={true} />
       </div>
       <div className="tickets-editor__right">
-        <NumericKeypad />
+        <Keypad editor={true} />
       </div>
     </div>
   );
