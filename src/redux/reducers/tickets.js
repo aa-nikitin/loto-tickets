@@ -1,5 +1,6 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
+import { createSelector } from 'reselect';
 import { ticketAdd, ticketDel, ticketItemSelected, ticketsState } from '../actions';
 import { ticketTemplate } from '../constants';
 
@@ -30,6 +31,17 @@ const itemSelected = handleActions(
 
 export const getTickets = (state) => state.tickets.list;
 export const getTicketSelected = (state) => state.tickets.itemSelected;
+
+export const getTicketsSelector = createSelector(getTickets, (items) =>
+  items.map((element, i) => {
+    const numbersOfTicket = element.items.filter((elem, i) => {
+      return elem !== null;
+    });
+
+    // const countTicket =
+    return { ...element, numbersOfTicket };
+  })
+);
 
 export default combineReducers({ list, itemSelected });
 // export default tickets;

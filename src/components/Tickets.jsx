@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
 // import produce from 'immer';
 import { ticketAdd, ticketDel, ticketsSave } from '../redux/actions';
-import { getTickets } from '../redux/reducers';
+import { getTicketsSelector, getKeypad } from '../redux/reducers';
 import { Ticket } from './Ticket';
 
 const Tickets = ({ editor }) => {
   const [nameTicket, setNameTicket] = React.useState('');
-  const tickets = useSelector((state) => getTickets(state));
-  //   console.log(tickets);
+  const tickets = useSelector((state) => getTicketsSelector(state));
+  const keypad = useSelector((state) => getKeypad(state));
   const dispatch = useDispatch();
   const addTicket = () => {
     const similarTickets = _.find(tickets, function (o) {
@@ -28,6 +28,14 @@ const Tickets = ({ editor }) => {
   };
   const changeNameTicket = ({ target }) => {
     setNameTicket(target.value);
+  };
+
+  const countRestNums = (i) => {
+    const restCounts = tickets[i].numbersOfTicket.filter((elem, i) => {
+      return _.indexOf(keypad, elem) < 0;
+    }).length;
+    const textResult = restCounts > 0 ? `Осталось чисел - ${restCounts}` : `Выйгрышный билет`;
+    return textResult;
   };
 
   return (
@@ -66,6 +74,7 @@ const Tickets = ({ editor }) => {
               <div className="tickets__one" key={element.name}>
                 <Ticket permissionToEdit={editor} nameTicket={element.name} items={element.items} />
               </div>
+              <div className="tickets__stat">{countRestNums(i)}</div>
             </div>
           );
         })}
