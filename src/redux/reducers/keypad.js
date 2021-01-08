@@ -1,10 +1,12 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
+import _ from 'lodash';
 import { keypadAdd, keypadChange, keypadState, keypadChangeList } from '../actions';
 
 const list = handleActions(
   {
-    [keypadAdd]: (state, { payload }) => (payload !== null ? [...state, payload] : [...state]),
+    [keypadAdd]: (state, { payload }) =>
+      payload !== null && _.indexOf(state, payload) < 0 ? [...state, payload] : [...state],
     [keypadState]: (_state, { payload }) => payload,
     [keypadChangeList]: (_state, { payload }) => payload
   },

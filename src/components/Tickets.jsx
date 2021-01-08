@@ -34,7 +34,10 @@ const Tickets = ({ editor }) => {
     const restCounts = tickets[i].numbersOfTicket.filter((elem, i) => {
       return _.indexOf(keypad, elem) < 0;
     }).length;
-    const textResult = restCounts > 0 ? `Осталось чисел - ${restCounts}` : `Выйгрышный билет`;
+    const textResult =
+      restCounts > 0
+        ? `Осталось чисел - ${restCounts} / ${tickets[i].numbersOfTicket.length}`
+        : `Выйгрышный билет`;
     return textResult;
   };
 

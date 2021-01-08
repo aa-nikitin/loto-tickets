@@ -130,6 +130,22 @@ body {
     // border-bottom: solid 1px $color-border;
     // border-right: solid 1px $color-border;
   }
+  &--editor {
+    & .numeric-keypad {
+      &__item {
+        &:last-child {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-transform: uppercase;
+          &:after {
+            content: 'Очистить ячейку';
+          }
+        }
+      }
+    }
+  }
   &__item {
     border-top: solid 1px $color-border;
     border-left: solid 1px $color-border;
@@ -148,6 +164,9 @@ body {
     &.active {
       background-color: #4d8f9c;
       color: #fff;
+    }
+    &:last-child {
+      display: none;
     }
   }
   &__button-box {

@@ -39,10 +39,13 @@ const Keypad = ({ editor }) => {
     else handleEditorKeypad(value);
   };
 
-  const handleClear = () => dispatch(keypadChangeList([]));
+  const handleClear = () => {
+    dispatch(keypadChangeList([]));
+    dispatch(ticketsSave());
+  };
 
   return (
-    <div className="numeric-keypad">
+    <div className={`numeric-keypad${editor ? ' numeric-keypad--editor' : ''}`}>
       <div className="numeric-keypad__wrap">
         {NUMERIC_KEYPAD.map((element, i) => {
           const elementWithouNull = element !== null ? element : -1;
