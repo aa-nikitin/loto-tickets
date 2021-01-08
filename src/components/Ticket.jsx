@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 import { ticketItemSelected } from '../redux/actions';
 import { getTicketSelected, getKeypad } from '../redux/reducers';
@@ -11,9 +12,9 @@ const Ticket = ({ items, nameTicket, permissionToEdit }) => {
   const dispatch = useDispatch();
   const handleClickItem = (item) => {
     dispatch(ticketItemSelected({ item, nameTicket }));
-    // console.log(item);
   };
   const typeTicketStyle = permissionToEdit ? ' ticket--editor' : '';
+
   return (
     <div className={`ticket${typeTicketStyle}`}>
       {items.map((element, i) => {
@@ -37,5 +38,12 @@ const Ticket = ({ items, nameTicket, permissionToEdit }) => {
     </div>
   );
 };
+
+Ticket.propTypes = {
+  items: PropTypes.array,
+  nameTicket: PropTypes.string,
+  permissionToEdit: PropTypes.bool
+};
+Ticket.defaultProps = { items: [], nameTicket: '', permissionToEdit: false };
 
 export { Ticket };

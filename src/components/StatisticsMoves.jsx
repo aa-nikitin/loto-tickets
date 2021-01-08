@@ -15,8 +15,10 @@ const StatisticsMoves = () => {
     const matchResult = tickets.filter((ticket) => {
       return _.indexOf(ticket.items, keypad[i]) >= 0;
     });
+
     return matchResult.length;
   };
+
   return (
     !keypadIsEmpty && (
       <div className="statistics-moves">

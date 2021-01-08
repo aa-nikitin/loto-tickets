@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
-// import produce from 'immer';
+import PropTypes from 'prop-types';
 import { ticketAdd, ticketDel, ticketsSave } from '../redux/actions';
 import { getTicketsSelector, getKeypad } from '../redux/reducers';
 import { Ticket } from './Ticket';
@@ -12,14 +12,13 @@ const Tickets = ({ editor }) => {
   const keypad = useSelector((state) => getKeypad(state));
   const dispatch = useDispatch();
   const addTicket = () => {
-    const similarTickets = _.find(tickets, function (o) {
-      return o.name === nameTicket;
+    const similarTickets = _.find(tickets, function (ticket) {
+      return ticket.name === nameTicket;
     });
     if (nameTicket && !similarTickets) {
       dispatch(ticketAdd(nameTicket));
       dispatch(ticketsSave());
       setNameTicket('');
-      // localStorage.setItem('test', 1);
     }
   };
   const delTicket = (name) => {
@@ -31,13 +30,13 @@ const Tickets = ({ editor }) => {
   };
 
   const countRestNums = (i) => {
-    const restCounts = tickets[i].numbersOfTicket.filter((elem, i) => {
-      return _.indexOf(keypad, elem) < 0;
-    }).length;
+    const restCounts = tickets[i].numbersOfTicket.filter((elem) => _.indexOf(keypad, elem) < 0)
+      .length;
     const textResult =
       restCounts > 0
         ? `Осталось чисел - ${restCounts} / ${tickets[i].numbersOfTicket.length}`
         : `Выйгрышный билет`;
+
     return textResult;
   };
 
@@ -85,5 +84,10 @@ const Tickets = ({ editor }) => {
     </Fragment>
   );
 };
+
+Tickets.propTypes = {
+  editor: PropTypes.bool
+};
+Tickets.defaultProps = { editor: false };
 
 export { Tickets };

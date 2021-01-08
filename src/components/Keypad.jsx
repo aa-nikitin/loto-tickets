@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import produce from 'immer';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getKeypad, getTickets, getTicketSelected } from '../redux/reducers';
 import { keypadAdd, ticketsState, ticketsSave, keypadChangeList } from '../redux/actions';
 import { NUMERIC_KEYPAD } from '../redux/constants';
@@ -11,9 +12,10 @@ const Keypad = ({ editor }) => {
   const tickets = useSelector((state) => getTickets(state));
   const ticketSelected = useSelector((state) => getTicketSelected(state));
   const dispatch = useDispatch();
-  const activeTicketIndex = _.findIndex(tickets, function (o) {
-    return o.name === ticketSelected.nameTicket;
-  });
+  const activeTicketIndex = _.findIndex(
+    tickets,
+    (ticket) => ticket.name === ticketSelected.nameTicket
+  );
   const itemsOfActiveTicket = tickets[activeTicketIndex] ? tickets[activeTicketIndex].items : [];
   const handleGameKeypad = (value) => {
     dispatch(keypadAdd(value));
@@ -23,7 +25,7 @@ const Keypad = ({ editor }) => {
   const handleEditorKeypad = (value) => {
     if (activeTicketIndex >= 0) {
       const similarTicketsItems = _.indexOf(itemsOfActiveTicket, value);
-      // console.log(similarTicketsItems);
+
       if (similarTicketsItems <= 0) {
         const nextState = produce(tickets, (draftState) => {
           draftState[activeTicketIndex].items[ticketSelected.item] = value;
@@ -53,10 +55,6 @@ const Keypad = ({ editor }) => {
             ? _.indexOf(keypad, element)
             : _.indexOf(itemsOfActiveTicket, elementWithouNull);
 
-          // const activeKeypadNumbers = editor
-          //   ? _.indexOf(tickets[activeTicketIndex].items, element)
-          //   : -1;
-          // console.log(element);
           return (
             <div
               onClick={() => handleClick(element)}
@@ -79,5 +77,10 @@ const Keypad = ({ editor }) => {
     </div>
   );
 };
+
+Keypad.propTypes = {
+  editor: PropTypes.bool
+};
+Keypad.defaultProps = { editor: false };
 
 export { Keypad };

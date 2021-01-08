@@ -16,8 +16,6 @@ const App = () => {
       <Header />
       <Route path="/" component={TicketsGame} exact />
       <Route path="/tickets-editor.html" component={TicketsEditor} exact />
-      {/* <Tickets />
-      <AddTicket /> */}
     </div>
   );
 };
