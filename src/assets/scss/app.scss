@@ -163,6 +163,9 @@ body {
   &__right {
     width: 30%;
   }
+  &__moves {
+    padding: 10px;
+  }
 }
 
 .top-menu {
@@ -215,5 +218,24 @@ body {
   }
   &__edit-text {
     margin-right: 10px;
+  }
+}
+
+.statistics-moves {
+  & table {
+    margin-top: 20px;
+    & tr {
+      &:nth-child(even) {
+        background-color: #dae3f5;
+      }
+    }
+    & th {
+      text-align: center;
+      padding: 5px 20px;
+    }
+    & td {
+      text-align: center;
+      padding: 5px 20px;
+    }
   }
 }

@@ -74,7 +74,7 @@ const Tickets = ({ editor }) => {
               <div className="tickets__one" key={element.name}>
                 <Ticket permissionToEdit={editor} nameTicket={element.name} items={element.items} />
               </div>
-              <div className="tickets__stat">{countRestNums(i)}</div>
+              {!editor ? <div className="tickets__stat">{countRestNums(i)}</div> : ''}
             </div>
           );
         })}
